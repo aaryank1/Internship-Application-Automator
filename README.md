@@ -52,7 +52,7 @@ This repository contains a Python-based project that automates the process of ap
     pip install -r requirements.txt
 
 3. **Obtain the URL for filtered Internships**:
-   Filtering Internships
+   Filtering Internships <br>
    To customize the internships you wish to apply for:
    a. Go to [Internshala](https://internshala.com/) and log in to your account.
    b. Apply the filters you want to narrow down the desired internships (e.g., location, category, stipend, etc.).
