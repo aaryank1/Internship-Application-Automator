@@ -95,4 +95,8 @@ This repository contains a Python-based project that automates the process of ap
 ## Important Note
 
 This script is compatible **only with Internshala accounts created using an email and password.** It does not support accounts that use "Sign in with Google" or other third-party authentication methods. Users must ensure they have registered on Internshala with an email and password to use this automation tool.
-[Internshala Automation.mp4](..%2F..%2FVideos%2FInternshala%20Automation.mp4)
+
+
+
+https://github.com/user-attachments/assets/a2e1503b-2327-4b83-84b1-469d63c8b0c3
+
