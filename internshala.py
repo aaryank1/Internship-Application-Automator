@@ -2,15 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from jobautomate import JobAutomation
-from dotenv import load_dotenv
 import os
 import time
 from cover_letter import generate_cover_letter
-
-load_dotenv()
-email = os.getenv("EMAIL")
-password = os.getenv("PASSWORD")
-internshala_url = os.getenv("INTERNSHALA_URL")
+from additional_answer import generate_ans
 
 
 class InternshalaAutomation(JobAutomation):
@@ -23,7 +18,7 @@ class InternshalaAutomation(JobAutomation):
 		email_input = self.driver.find_element(By.NAME, value='email')
 		pwd_input = self.driver.find_element(By.NAME, value='password')
 
-		# The random sleep() and clicks are used to mimic human behaviour to bypass captcha
+		# The random sleep() and clicks are used as an attempt to mimic human behaviour to bypass captcha
 		time.sleep(2)
 		pwd_input.click()
 		time.sleep(1)
@@ -44,73 +39,97 @@ class InternshalaAutomation(JobAutomation):
 			cover_letter_container = self.driver.find_element(by=By.CSS_SELECTOR, value="#cover_letter_holder .ql-editor")
 			cover_letter_text = generate_cover_letter(internship)
 			cover_letter_container.send_keys(cover_letter_text)
-			# time.sleep(10)
 		except:
-			print("No cover letter input box found")
 			pass
 
 		# Resume Upload
 		resume = os.path.abspath(os.path.join(os.path.dirname(__file__), "assets", "Resume.pdf"))
 		file_input = self.driver.find_element(by=By.CSS_SELECTOR, value="input[type='file']")
 		file_input.send_keys(resume)
-		time.sleep(5)
 
 		# Laptop and Internet availability
 		try:
-			laptop_internet_question = self.driver.find_element(by=By.XPATH, value="//label[contains(text(), 'Do you have a working laptop and internet?')]")
-			yes_option = self.driver.find_element(by=By.XPATH, value="//input[@type='radio' and @value='Yes']")
-			yes_option.click()
+			laptop_internet_question = self.driver.find_elements(by=By.CLASS_NAME, value="additional_question")
+			for q in laptop_internet_question:
+				try:
+					label = q.find_element(by=By.CSS_SELECTOR, value=".custom_question_boolean_container .radio label")
+					label.click()
+				except:
+					continue
 		except:
-			print("No laptop question or other error")
+			# print("No laptop question or other error")
 			pass
+
+		# Custom Additional Questions
+		additional_questions = self.driver.find_elements(by=By.CLASS_NAME, value="additional_question")
+		for question in additional_questions:
+			try:
+				que = question.find_element(by=By.CLASS_NAME, value="assessment_question").text
+				textarea = question.find_element(by=By.CLASS_NAME, value="custom-question-answer")
+				answer = generate_ans(que, internship)
+				textarea.send_keys(answer)
+				# print(answer)
+
+			except:
+				print("No additional questions")
+				continue
+
+		submit_btn = self.driver.find_element(by=By.ID, value="submit")
+		submit_btn.click()
+		time.sleep(4)
 
 
 	def find_jobs_and_apply(self):
-		self.driver.get(internshala_url)
+		self.driver.get(self.url)
 		list_of_jobs = self.driver.find_elements(by=By.CSS_SELECTOR, value='#internship_list_container_1 .visibilityTrackerItem')
 
 		job_links = []
 		for job in list_of_jobs:
 			try:
 				job_title = job.find_element(by=By.CSS_SELECTOR, value="div div div h3").text
-				if "WordPress" not in job_title and "Nextjs" not in job_title and "PHP" not in job_title:
-					print(job_title)
+				job_title = job_title.lower()
+
+				# Here I have manually filtered out jobs that I do not want to apply to. If you want to apply to these as well, remove this line.
+				if "wordpress" not in job_title and "nextjs" not in job_title and "php" not in job_title:
+					# print(job_title)
 					job_links.append(job.get_attribute("id"))
 			except:
 				continue
-		print(job_links)
 
-		# print(job_links)
 		original_window = self.driver.current_window_handle
 		for link in job_links:
-			job = self.driver.find_element(by=By.ID, value=link)
+			job = self.driver.find_element(by=By.CSS_SELECTOR, value=f"#{link} h3 a")
 			job.click()
-			self.driver.switch_to.window(self.driver.window_handles[2])
-			self.driver.close()
 			self.driver.switch_to.window(self.driver.window_handles[1])
 
+			# Extract the details of the internship. We need this for gemini to fill the internship application form.
 			internship = self.driver.find_element(by=By.CLASS_NAME, value="detail_view").text
 			try:
+				# These are advertisements for courses that need to be removed from the internship details.
 				exclude_text = self.driver.find_element(by=By.CLASS_NAME, value="training_skills_container").text
 				internship = internship.replace(exclude_text, "")
 			except:
 				pass
 
-			time.sleep(2)
+			try:
+				apply_btn = self.driver.find_element(by=By.ID, value="apply_now_button")
+				apply_btn.click()
 
-			apply_btn = self.driver.find_element(by=By.ID, value="apply_now_button")
-			apply_btn.click()
+				proceed_btn = self.driver.find_element(by=By.XPATH, value='//*[@id="layout_table"]/div[5]/button')
+				proceed_btn.click()
 
-			proceed_btn = self.driver.find_element(by=By.XPATH, value='//*[@id="layout_table"]/div[5]/button')
-			proceed_btn.click()
+				self.fill_form(internship)
+				self.driver.close()
 
-			self.fill_form(internship)
-			self.driver.close()
+				self.driver.switch_to.window(original_window)
+				time.sleep(2)
+			except:
+				apply_btn = self.driver.find_element(by=By.ID, value="easy_apply_button")
+				apply_btn.click()
 
-			self.driver.switch_to.window(original_window)
-			time.sleep(2)
+				self.fill_form(internship)
+				self.driver.close()
 
+				self.driver.switch_to.window(original_window)
+				time.sleep(2)
 
-internshala = InternshalaAutomation(email, password, url=internshala_url)
-internshala.login()
-internshala.find_jobs_and_apply()
