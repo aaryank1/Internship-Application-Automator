@@ -17,8 +17,18 @@ This repository contains a Python-based project that automates the process of ap
 
 ## Folder Structure
 
-markdown
-Copy code
+```
+├── assets/
+│   └── Resume.pdf            # Resume used for applications
+├── main.py                   # Entry point of the project
+├── jobautomate.py            # Base class for job automation
+├── internshala.py            # Internshala-specific automation logic
+├── additional_answer.py      # Generates answers to additional application questions
+├── cover_letter.py           # Generates personalized cover letters
+├── .env                      # Contains environment variables (credentials)
+└── README.md                 # Project documentation
+```
+
 # Internshala Job Application Automation
 
 This repository contains a Python-based project that automates the process of applying for internships on Internshala. Using Selenium for browser automation and OpenAI's Generative AI for generating customized cover letters and answers to additional questions, this project simplifies the job application process.
