@@ -16,27 +16,6 @@ This repository contains a Python-based project that automates the process of ap
 ---
 
 ## Folder Structure
-
-markdown
-Copy code
-# Internshala Job Application Automation
-
-This repository contains a Python-based project that automates the process of applying for internships on Internshala. Using Selenium for browser automation and OpenAI's Generative AI for generating customized cover letters and answers to additional questions, this project simplifies the job application process.
-
----
-
-## Features
-
-- **Automated Login**: Logs into the Internshala platform using user-provided credentials.
-- **Internship Discovery**: Filters and lists internships based on predefined preferences.
-- **Custom Cover Letter Generation**: Generates personalized cover letters for each application using OpenAI's Gemini API.
-- **Additional Questions Handling**: Automatically answers additional questions based on the internship description and resume content.
-- **Resume Upload**: Automatically uploads the user's resume during the application process.
-- **Human-like Interaction**: Includes randomized delays to mimic human behavior.
-
----
-
-## Folder Structure
 ```
 ├── assets/
 │   └── Resume.pdf            # Resume used for applications
@@ -72,14 +51,25 @@ This repository contains a Python-based project that automates the process of ap
     ```bash
     pip install -r requirements.txt
 
-3. **Set up environment variables: Create a .env file in the root directory and add the following:**
+3. **Obtain the URL for filtered Internships**:
+   Filtering Internships <br>
+   To customize the internships you wish to apply for:
+   a. Go to [Internshala](https://internshala.com/) and log in to your account.
+   b. Apply the filters you want to narrow down the desired internships (e.g., location, category, stipend, etc.).
+   c. Copy the resulting URL from your browser's address bar.
+   d. Paste the URL into the `.env` file against the `INTERNSHALA_URL` variable as shown below:
+      ```plaintext
+      INTERNSHALA_URL=<your_filtered_url>
+
+
+4. **Set up environment variables: Create a .env file in the root directory and add the following:**
     ```bash
     EMAIL=<your_internshala_email>
     PASSWORD=<your_internshala_password>
-    INTERNSHALA_URL=https://internshala.com/internships
+    INTERNSHALA_URL=<filtered_internshala_url>
     GEMINI_API_KEY=<your_openai_api_key>
 
-4. **Add your resume: Place your resume as a PDF file in the assets/ directory with the name Resume.pdf.**
+5. **Add your resume: Place your resume as a PDF file in the assets/ directory with the name Resume.pdf.**
 
 ## Usage
 1. Run the script:
