@@ -42,8 +42,21 @@ class InternshalaAutomation(JobAutomation):
 		except:
 			pass
 
+		# Availability
+		try:
+			availability = self.driver.find_elements(by=By.CSS_SELECTOR,value="#confirm_availability_container #options .radio")
+			no_btn = availability[1].find_element(by=By.TAG_NAME, value="label").click()
+
+			reason = self.driver.find_element(by=By.ID, value="confirm_availability_textarea")
+			reason.send_keys("No, Dear Hiring Team,\nI wanted to inform you about my availability for the internship. I have college exams until 9th December, so I would be able to join from 10th December. However, I will be unavailable from 29th December to 2nd January due to prior commitments.\nI would greatly appreciate your understanding and request either a brief leave during that period or the possibility to start the internship from 3rd January onwards.\nPlease let me know if this can be accommodated. I am eager to contribute and am flexible to discuss arrangements that work best for your team.\nThank you for your time and consideration.\nBest regards,\nAaryan Kakade.")
+		except:
+			print("No option detected")
+			pass
+
 		# Resume Upload
 		resume = os.path.abspath(os.path.join(os.path.dirname(__file__), "assets", "Resume.pdf"))
+		rem_prefilled_resume = self.driver.find_element(by=By.CSS_SELECTOR, value=".custom-resume-container .file-frame-container .frame-close i")
+		rem_prefilled_resume.click()
 		file_input = self.driver.find_element(by=By.CSS_SELECTOR, value="input[type='file']")
 		file_input.send_keys(resume)
 
@@ -68,7 +81,7 @@ class InternshalaAutomation(JobAutomation):
 				textarea = question.find_element(by=By.CLASS_NAME, value="custom-question-answer")
 				answer = generate_ans(que, internship)
 				textarea.send_keys(answer)
-				# print(answer)
+			# print(answer)
 
 			except:
 				print("No additional questions")
