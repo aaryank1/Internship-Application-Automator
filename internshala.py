@@ -48,7 +48,7 @@ class InternshalaAutomation(JobAutomation):
 			no_btn = availability[1].find_element(by=By.TAG_NAME, value="label").click()
 
 			reason = self.driver.find_element(by=By.ID, value="confirm_availability_textarea")
-			reason.send_keys("No, Dear Hiring Team,\nI wanted to inform you about my availability for the internship. I have college exams until 9th December, so I would be able to join from 10th December. However, I will be unavailable from 29th December to 2nd January due to prior commitments.\nI would greatly appreciate your understanding and request either a brief leave during that period or the possibility to start the internship from 3rd January onwards.\nPlease let me know if this can be accommodated. I am eager to contribute and am flexible to discuss arrangements that work best for your team.\nThank you for your time and consideration.\nBest regards,\nAaryan Kakade.")
+			reason.send_keys("\nDear Hiring Team,\nI wanted to inform you about my availability for the internship. I have college exams until 9th December, so I would be able to join from 10th December. However, I will be unavailable from 29th December to 2nd January due to prior commitments.\nI would greatly appreciate your understanding and request either a brief leave during that period or the possibility to start the internship from 3rd January onwards.\nPlease let me know if this can be accommodated. I am eager to contribute and am flexible to discuss arrangements that work best for your team.\nThank you for your time and consideration.\nBest regards,\nAaryan Kakade.")
 		except:
 			print("No option detected")
 			pass
@@ -91,8 +91,7 @@ class InternshalaAutomation(JobAutomation):
 		submit_btn.click()
 		time.sleep(4)
 
-
-	def find_jobs_and_apply(self):
+	def apply(self):
 		self.driver.get(self.url)
 		list_of_jobs = self.driver.find_elements(by=By.CSS_SELECTOR, value='#internship_list_container_1 .visibilityTrackerItem')
 
@@ -146,3 +145,4 @@ class InternshalaAutomation(JobAutomation):
 				self.driver.switch_to.window(original_window)
 				time.sleep(2)
 
+		self.quit()
