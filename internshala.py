@@ -102,7 +102,7 @@ class InternshalaAutomation(JobAutomation):
 				job_title = job_title.lower()
 
 				# Here I have manually filtered out jobs that I do not want to apply to. If you want to apply to these as well, remove this line.
-				if "wordpress" not in job_title and "nextjs" not in job_title and "php" not in job_title:
+				if "wordpress" not in job_title and "nextjs" not in job_title and "php" not in job_title and "native" not in job_title and "angular" not in job_title:
 					# print(job_title)
 					job_links.append(job.get_attribute("id"))
 			except:

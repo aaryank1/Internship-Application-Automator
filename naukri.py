@@ -52,12 +52,13 @@ class Naukri(JobAutomation):
 			opp.click()
 			self.driver.switch_to.window(self.driver.window_handles[1])
 			try:
-				self.driver.find_element(By.ID, "apply-button")
 				wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#job_header #apply-button")))
-				apply_btn = self.driver.find_element(by=By.XPATH, value="//button[text()='Apply']")
+				apply_btn = self.driver.find_element(By.ID, "apply-button")
 				apply_btn.click()
 			except:
 				print("Application at Company")
 				pass
 			self.driver.close()
 			self.driver.switch_to.window(original_window)
+
+		self.quit()
