@@ -43,15 +43,15 @@ class InternshalaAutomation(JobAutomation):
 			pass
 
 		# Availability
-		try:
-			availability = self.driver.find_elements(by=By.CSS_SELECTOR,value="#confirm_availability_container #options .radio")
-			no_btn = availability[1].find_element(by=By.TAG_NAME, value="label").click()
-
-			reason = self.driver.find_element(by=By.ID, value="confirm_availability_textarea")
-			reason.send_keys("\nDear Hiring Team,\nI wanted to inform you about my availability for the internship. I have college exams until 9th December, so I would be able to join from 10th December. However, I will be unavailable from 29th December to 2nd January due to prior commitments.\nI would greatly appreciate your understanding and request either a brief leave during that period or the possibility to start the internship from 3rd January onwards.\nPlease let me know if this can be accommodated. I am eager to contribute and am flexible to discuss arrangements that work best for your team.\nThank you for your time and consideration.\nBest regards,\nAaryan Kakade.")
-		except:
-			print("No option detected")
-			pass
+		# try:
+		# 	availability = self.driver.find_elements(by=By.CSS_SELECTOR,value="#confirm_availability_container #options .radio")
+		# 	no_btn = availability[1].find_element(by=By.TAG_NAME, value="label").click()
+		#
+		# 	reason = self.driver.find_element(by=By.ID, value="confirm_availability_textarea")
+		# 	reason.send_keys("\nDear Hiring Team,\nI wanted to inform you about my availability for the internship. I have college exams until 9th December, so I would be able to join from 10th December. However, I will be unavailable from 29th December to 2nd January due to prior commitments.\nI would greatly appreciate your understanding and request either a brief leave during that period or the possibility to start the internship from 3rd January onwards.\nPlease let me know if this can be accommodated. I am eager to contribute and am flexible to discuss arrangements that work best for your team.\nThank you for your time and consideration.\nBest regards,\nAaryan Kakade.")
+		# except:
+		# 	print("No option detected")
+		# 	pass
 
 		# Resume Upload
 		resume = os.path.abspath(os.path.join(os.path.dirname(__file__), "assets", "Resume.pdf"))
@@ -102,7 +102,7 @@ class InternshalaAutomation(JobAutomation):
 				job_title = job_title.lower()
 
 				# Here I have manually filtered out jobs that I do not want to apply to. If you want to apply to these as well, remove this line.
-				if "wordpress" not in job_title and "nextjs" not in job_title and "php" not in job_title and "native" not in job_title and "angular" not in job_title:
+				if "wordpress" not in job_title and "nextjs" not in job_title and "php" not in job_title and "native" not in job_title and "angular" not in job_title and "ruby" not in job_title:
 					# print(job_title)
 					job_links.append(job.get_attribute("id"))
 			except:
