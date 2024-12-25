@@ -10,9 +10,9 @@ username = os.getenv("EMAIL")
 internshala_password = os.getenv("INTERNSHALA_PASSWORD")
 internshala_url = os.getenv("INTERNSHALA_URL")
 
-# internshala_obj = InternshalaAutomation(username=username, password=internshala_password, url=internshala_url)
-# internshala_obj.login()
-# internshala_obj.apply()
+internshala_obj = InternshalaAutomation(username=username, password=internshala_password, url=internshala_url)
+internshala_obj.login()
+internshala_obj.apply()
 
 
 # Naukri.com
