@@ -4,9 +4,9 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+username = os.getenv("EMAIL")
 
 # Internshala
-username = os.getenv("EMAIL")
 internshala_password = os.getenv("INTERNSHALA_PASSWORD")
 internshala_url = os.getenv("INTERNSHALA_URL")
 
