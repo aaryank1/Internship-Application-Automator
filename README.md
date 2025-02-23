@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/56e1dc40-f370-4529-90f1-eb5e6870ef92
 
 - **Automated Login**: Logs into the Internshala platform using user-provided credentials.
 - **Internship Discovery**: Filters and lists internships based on predefined preferences.
-- **Custom Cover Letter Generation**: Generates personalized cover letters for each application using OpenAI's Gemini API.
+- **Custom Cover Letter Generation**: Generates personalized cover letters for each application using Google Gemini's Gemini API.
 - **Additional Questions Handling**: Automatically answers additional questions based on the internship description and resume content.
 - **Resume Upload**: Automatically uploads the user's resume during the application process.
 - **Human-like Interaction**: Includes randomized delays to mimic human behavior.
@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/56e1dc40-f370-4529-90f1-eb5e6870ef92
 - Google Chrome
 - ChromeDriver (matching version)
 - Selenium library
-- OpenAI's Python SDK
+- Google Gemini's Python SDK
 - `dotenv` library for managing environment variables
 
 ---
@@ -76,7 +76,7 @@ https://github.com/user-attachments/assets/56e1dc40-f370-4529-90f1-eb5e6870ef92
     EMAIL=<your_internshala_email>
     PASSWORD=<your_internshala_password>
     INTERNSHALA_URL=<filtered_internshala_url>
-    GEMINI_API_KEY=<your_openai_api_key>
+    GEMINI_API_KEY=<your_Google Gemini_api_key>
 
 5. **Add your resume: Place your resume as a PDF file in the assets/ directory with the name Resume.pdf.**
 
