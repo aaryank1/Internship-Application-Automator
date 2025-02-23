@@ -1,6 +1,6 @@
 # Internshala Job Application Automation
 
-This repository contains a Python-based project that automates the process of applying for internships on Internshala. Using Selenium for browser automation and OpenAI's Generative AI for generating customized cover letters and answers to additional questions, this project simplifies the job application process.
+This repository contains a Python-based project that automates the process of applying for internships on Internshala. Using Selenium for browser automation and Google Gemini's Generative AI for generating customized cover letters and answers to additional questions, this project simplifies the job application process.
 
 ---
 
